@@ -1,4 +1,4 @@
-Absolutely. For GitHub, I'd make it clean, serious, and product-like rather than a generic React README.
+
 Agency Client Stack
 A lightweight, local-first client management toolkit built for modern agencies and freelancers.
 Agency Client Stack brings the essential client-facing documents into one focused workspace — without subscriptions, unnecessary complexity, or scattered tools.

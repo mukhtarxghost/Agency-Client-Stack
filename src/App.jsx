@@ -6,7 +6,15 @@ import InvoicePreview from "./components/InvoicePreview";
 import ContractForm from "./components/contract/ContractForm";
 import ContractPreview from "./components/contract/ContractPreview";
 
+import ProposalForm from "./components/proposal/ProposalForm";
+import ProposalPreview from "./components/proposal/ProposalPreview";
+
+import WelcomeForm from "./components/welcome/WelcomeForm";
+import WelcomePreview from "./components/welcome/WelcomePreview";
+
 import { defaultContract } from "./utils/contractUtils";
+import { defaultProposal } from "./utils/proposalUtils";
+import { defaultWelcome } from "./utils/welcomeUtils";
 
 import "./App.css";
 
@@ -50,30 +58,26 @@ function App() {
 
   const [contract, setContract] = useState(defaultContract);
 
+  // ================= PROPOSAL =================
+
+  const [proposal, setProposal] = useState(defaultProposal);
+
+  // ================= WELCOME =================
+
+  const [welcome, setWelcome] = useState(defaultWelcome);
+
   return (
     <div className="app">
 
       {/* TOP BAR */}
       <header className="topbar">
-
         <div className="brand">
-          {activeTool === "invoice" ? (
-            <>
-              INVOICE<span>.</span>
-            </>
-          ) : (
-            <>
-              VANTIX<span>.</span>
-            </>
-          )}
+          VANTIX<span>.</span>
         </div>
 
         <div className="topbar-label">
-          {activeTool === "invoice"
-            ? "LOCAL INVOICE GENERATOR"
-            : "CLIENT STACK / CONTRACT"}
+          CLIENT STACK
         </div>
-
       </header>
 
       {/* TOOL NAVIGATION */}
@@ -89,12 +93,16 @@ function App() {
         }}
       >
 
+        {/* INVOICE */}
         <button
           onClick={() => setActiveTool("invoice")}
           style={{
             background: "none",
             border: "none",
-            color: activeTool === "invoice" ? "#fff" : "#666",
+            color:
+              activeTool === "invoice"
+                ? "#fff"
+                : "#666",
             fontSize: "12px",
             fontWeight: "700",
             letterSpacing: "2px",
@@ -109,12 +117,16 @@ function App() {
           INVOICE
         </button>
 
+        {/* CONTRACT */}
         <button
           onClick={() => setActiveTool("contract")}
           style={{
             background: "none",
             border: "none",
-            color: activeTool === "contract" ? "#fff" : "#666",
+            color:
+              activeTool === "contract"
+                ? "#fff"
+                : "#666",
             fontSize: "12px",
             fontWeight: "700",
             letterSpacing: "2px",
@@ -129,39 +141,59 @@ function App() {
           CONTRACT
         </button>
 
+        {/* PROPOSAL */}
         <button
-          disabled
+          onClick={() => setActiveTool("proposal")}
           style={{
             background: "none",
             border: "none",
-            color: "#292929",
+            color:
+              activeTool === "proposal"
+                ? "#fff"
+                : "#666",
             fontSize: "12px",
             fontWeight: "700",
             letterSpacing: "2px",
             padding: "23px 0",
+            cursor: "pointer",
+            borderBottom:
+              activeTool === "proposal"
+                ? "1px solid #fff"
+                : "1px solid transparent",
           }}
         >
-          PROPOSAL <small style={{ marginLeft: "5px" }}>SOON</small>
+          PROPOSAL
         </button>
 
+        {/* WELCOME */}
         <button
-          disabled
+          onClick={() => setActiveTool("welcome")}
           style={{
             background: "none",
             border: "none",
-            color: "#292929",
+            color:
+              activeTool === "welcome"
+                ? "#fff"
+                : "#666",
             fontSize: "12px",
             fontWeight: "700",
             letterSpacing: "2px",
             padding: "23px 0",
+            cursor: "pointer",
+            borderBottom:
+              activeTool === "welcome"
+                ? "1px solid #fff"
+                : "1px solid transparent",
           }}
         >
-          WELCOME <small style={{ marginLeft: "5px" }}>SOON</small>
+          WELCOME
         </button>
 
       </nav>
 
-      {/* ================= INVOICE ================= */}
+      {/* =====================================================
+          INVOICE
+          ===================================================== */}
 
       {activeTool === "invoice" && (
         <main className="workspace">
@@ -182,7 +214,9 @@ function App() {
         </main>
       )}
 
-      {/* ================= CONTRACT ================= */}
+      {/* =====================================================
+          CONTRACT
+          ===================================================== */}
 
       {activeTool === "contract" && (
         <main className="workspace">
@@ -197,6 +231,52 @@ function App() {
           <section className="preview-panel">
             <ContractPreview
               contract={contract}
+            />
+          </section>
+
+        </main>
+      )}
+
+      {/* =====================================================
+          PROPOSAL
+          ===================================================== */}
+
+      {activeTool === "proposal" && (
+        <main className="workspace">
+
+          <section className="editor">
+            <ProposalForm
+              proposal={proposal}
+              setProposal={setProposal}
+            />
+          </section>
+
+          <section className="preview-panel">
+            <ProposalPreview
+              proposal={proposal}
+            />
+          </section>
+
+        </main>
+      )}
+
+      {/* =====================================================
+          WELCOME
+          ===================================================== */}
+
+      {activeTool === "welcome" && (
+        <main className="workspace">
+
+          <section className="editor">
+            <WelcomeForm
+              welcome={welcome}
+              setWelcome={setWelcome}
+            />
+          </section>
+
+          <section className="preview-panel">
+            <WelcomePreview
+              welcome={welcome}
             />
           </section>
 

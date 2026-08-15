@@ -1,13 +1,11 @@
-html,
-body,
-#root {
-  min-height: 100%;
-}
-
 html {
-  background: #090909;
+  background: #080808;
 }
 
 body {
   margin: 0;
+}
+
+#root {
+  min-height: 100vh;
 }

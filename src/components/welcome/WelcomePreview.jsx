@@ -34,7 +34,7 @@ function WelcomePreview({ welcome }) {
 
       <section className="welcome-hero">
 
-        <span>WELCOME ABOARD</span>
+        <span>WELCOME ONBOARD</span>
 
         <h2>
           {welcome.clientName

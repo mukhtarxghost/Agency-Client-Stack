@@ -1,26 +1,31 @@
-import { formatCurrency, formatDate } from "../../utils/invoiceUtils";
+import {
+  formatCurrency,
+  formatDate,
+  calculateSubtotal,
+  calculateTax,
+  calculateTotal,
+} from "../../utils/invoiceUtils";
 
 function InvoicePreview({ invoice }) {
-  const subtotal = invoice.items.reduce(
-    (sum, item) =>
-      sum + Number(item.quantity || 0) * Number(item.rate || 0),
-    0
-  );
-
-  const taxAmount = subtotal * (Number(invoice.tax || 0) / 100);
-  const total = subtotal + taxAmount;
+  const subtotal = calculateSubtotal(invoice.items);
+  const taxAmount = calculateTax(subtotal, invoice.tax);
+  const total = calculateTotal(subtotal, taxAmount);
 
   return (
     <div className="invoice-document">
+
+      {/* HEADER */}
       <header className="invoice-document-header">
         <div className="invoice-brand">
           <img
             src="/branding/vantix-logo.jpeg"
             alt="Vantix"
-            className="document-logo-image"
+            className="invoice-logo"
           />
 
-          <h1>{invoice.seller.name || "YOUR BUSINESS"}</h1>
+          <h1>
+            {invoice.seller.name || "YOUR BUSINESS"}
+          </h1>
 
           {invoice.seller.address && (
             <p>{invoice.seller.address}</p>
@@ -40,18 +45,23 @@ function InvoicePreview({ invoice }) {
 
           <div>
             <span>NUMBER</span>
-            <strong>{invoice.invoiceNumber}</strong>
+            <strong>
+              {invoice.invoiceNumber}
+            </strong>
           </div>
 
           <div>
             <span>DATE</span>
-            <strong>{formatDate(invoice.date)}</strong>
+            <strong>
+              {formatDate(invoice.date)}
+            </strong>
           </div>
         </div>
       </header>
 
       <div className="invoice-rule" />
 
+      {/* CLIENT */}
       <section className="invoice-client">
         <div>
           <span>BILL TO</span>
@@ -75,10 +85,14 @@ function InvoicePreview({ invoice }) {
 
         <div className="invoice-status">
           <span>STATUS</span>
-          <strong>UNPAID</strong>
+
+          <strong>
+            UNPAID
+          </strong>
         </div>
       </section>
 
+      {/* ITEMS */}
       <section className="invoice-items">
         <div className="invoice-items-header">
           <span>DESCRIPTION</span>
@@ -117,13 +131,17 @@ function InvoicePreview({ invoice }) {
         })}
       </section>
 
+      {/* TOTALS */}
       <section className="invoice-totals">
-        <div>
+        <div className="invoice-total-row">
           <span>SUBTOTAL</span>
-          <strong>{formatCurrency(subtotal)}</strong>
+
+          <strong>
+            {formatCurrency(subtotal)}
+          </strong>
         </div>
 
-        <div>
+        <div className="invoice-total-row">
           <span>
             TAX ({invoice.tax || 0}%)
           </span>
@@ -133,23 +151,43 @@ function InvoicePreview({ invoice }) {
           </strong>
         </div>
 
-        <div className="invoice-total">
+        <div className="invoice-total-divider" />
+
+        <div className="invoice-total-final">
           <span>TOTAL</span>
-          <strong>{formatCurrency(total)}</strong>
+
+          <strong>
+            {formatCurrency(total)}
+          </strong>
         </div>
       </section>
 
+      {/* NOTES */}
       {invoice.notes && (
         <section className="invoice-notes">
           <span>NOTES</span>
-          <p>{invoice.notes}</p>
+
+          <p>
+            {invoice.notes}
+          </p>
         </section>
       )}
 
-      <footer className="invoice-footer">
-        <span>THANK YOU FOR YOUR BUSINESS.</span>
-        <span>VANTIX / INVOICE SYSTEM</span>
+      {/* FOOTER */}
+      <footer className="invoice-document-footer">
+        <span>
+          VANTIX / INVOICE
+        </span>
+
+        <span>
+          THANK YOU FOR YOUR BUSINESS
+        </span>
+
+        <span>
+          {invoice.invoiceNumber}
+        </span>
       </footer>
+
     </div>
   );
 }

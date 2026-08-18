@@ -1819,3 +1819,10 @@ textarea {
   object-position: left center !important;
   margin: 0 0 14px 0 !important;
 }
+.invoice-logo {
+  display: block;
+  width: 52px;
+  height: 52px;
+  object-fit: contain;
+  margin-bottom: 14px;
+}

@@ -1,4 +1,5 @@
 import InvoiceHeader from "./InvoiceHeader";
+
 import {
   calculateSubtotal,
   calculateTax,
@@ -17,8 +18,13 @@ function InvoicePreview({ invoice }) {
 
   return (
     <div className="preview-wrapper">
+
+      {/* PREVIEW TOOLBAR */}
       <div className="preview-toolbar">
-        <span>LIVE PREVIEW</span>
+
+        <span>
+          LIVE PREVIEW
+        </span>
 
         <button
           type="button"
@@ -26,91 +32,165 @@ function InvoicePreview({ invoice }) {
         >
           PRINT / SAVE PDF
         </button>
+
       </div>
 
+      {/* INVOICE PAPER */}
       <div className="invoice-paper">
+
+        {/* HEADER + LOGO */}
         <InvoiceHeader invoice={invoice} />
 
+        {/* DIVIDER */}
+        <div className="invoice-rule" />
+
+        {/* BILL TO */}
         <div className="bill-section">
+
           <div className="bill-to">
-            <span className="label">BILL TO</span>
+
+            <span className="label">
+              BILL TO
+            </span>
 
             <strong>
               {invoice.client.name || "CLIENT NAME"}
             </strong>
 
             {invoice.client.email && (
-              <p>{invoice.client.email}</p>
+              <p>
+                {invoice.client.email}
+              </p>
             )}
 
             {invoice.client.phone && (
-              <p>{invoice.client.phone}</p>
+              <p>
+                {invoice.client.phone}
+              </p>
             )}
 
             {invoice.client.address && (
-              <p>{invoice.client.address}</p>
+              <p>
+                {invoice.client.address}
+              </p>
             )}
+
           </div>
 
           <div className="payment-status">
-            <span className="label">STATUS</span>
-            <strong>UNPAID</strong>
+
+            <span className="label">
+              STATUS
+            </span>
+
+            <strong>
+              UNPAID
+            </strong>
+
           </div>
+
         </div>
 
+        {/* ITEMS */}
         <div className="invoice-table">
+
           <div className="table-header">
-            <span>DESCRIPTION</span>
-            <span>QTY</span>
-            <span>RATE</span>
-            <span>AMOUNT</span>
+
+            <span>
+              DESCRIPTION
+            </span>
+
+            <span>
+              QTY
+            </span>
+
+            <span>
+              RATE
+            </span>
+
+            <span>
+              AMOUNT
+            </span>
+
           </div>
 
-          {invoice.items.map((item) => (
-            <div
-              className="table-row"
-              key={item.id}
-            >
-              <span>
-                {item.description || "Service / Product"}
-              </span>
+          {invoice.items.map((item) => {
 
-              <span>
-                {item.quantity}
-              </span>
+            const quantity =
+              Number(item.quantity || 0);
 
-              <span>
-                {formatCurrency(item.rate)}
-              </span>
+            const rate =
+              Number(item.rate || 0);
 
-              <span>
-                {formatCurrency(
-                  item.quantity * item.rate
-                )}
-              </span>
-            </div>
-          ))}
+            const amount =
+              quantity * rate;
+
+            return (
+              <div
+                className="table-row"
+                key={item.id}
+              >
+
+                <span>
+                  {item.description ||
+                    "Service / Product"}
+                </span>
+
+                <span>
+                  {quantity}
+                </span>
+
+                <span>
+                  {formatCurrency(rate)}
+                </span>
+
+                <span>
+                  {formatCurrency(amount)}
+                </span>
+
+              </div>
+            );
+          })}
+
         </div>
 
+        {/* BOTTOM SECTION */}
         <div className="invoice-bottom">
+
+          {/* NOTES */}
           <div className="invoice-notes">
+
             {invoice.notes && (
               <>
-                <span className="label">NOTES</span>
-                <p>{invoice.notes}</p>
+                <span className="label">
+                  NOTES
+                </span>
+
+                <p>
+                  {invoice.notes}
+                </p>
               </>
             )}
+
           </div>
 
+          {/* TOTALS */}
           <div className="totals">
+
             <div>
-              <span>SUBTOTAL</span>
+
+              <span>
+                SUBTOTAL
+              </span>
+
               <strong>
                 {formatCurrency(subtotal)}
               </strong>
+
             </div>
 
             <div>
+
               <span>
                 TAX ({invoice.tax || 0}%)
               </span>
@@ -118,23 +198,44 @@ function InvoicePreview({ invoice }) {
               <strong>
                 {formatCurrency(tax)}
               </strong>
+
             </div>
 
             <div className="total-row">
-              <span>TOTAL</span>
+
+              <span>
+                TOTAL
+              </span>
 
               <strong>
                 {formatCurrency(total)}
               </strong>
+
             </div>
+
           </div>
+
         </div>
 
+        {/* FOOTER */}
         <div className="invoice-footer">
-          <span>THANK YOU FOR YOUR BUSINESS.</span>
-          <span>INVOICE SYSTEM</span>
+
+          <span>
+            THANK YOU FOR YOUR BUSINESS.
+          </span>
+
+          <span>
+            VANTIX / INVOICE
+          </span>
+
+          <span>
+            {invoice.invoiceNumber}
+          </span>
+
         </div>
+
       </div>
+
     </div>
   );
 }

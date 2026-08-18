@@ -1,40 +1,66 @@
 function InvoiceHeader({ invoice }) {
   return (
-    <div className="invoice-header">
-      <div className="invoice-brand">
-        <h2>{invoice.seller.name || "YOUR BUSINESS"}</h2>
+    <header className="invoice-header">
 
-        {invoice.seller.address && (
-          <p>{invoice.seller.address}</p>
-        )}
+      {/* LEFT — VANTIX BRAND */}
+      <div className="invoice-business">
 
-        <div className="contact-line">
-          {invoice.seller.email && (
-            <span>{invoice.seller.email}</span>
-          )}
+        <img
+          src="/branding/vantix-logo.jpeg"
+          alt="Vantix"
+          className="invoice-logo"
+        />
 
-          {invoice.seller.phone && (
-            <span>{invoice.seller.phone}</span>
-          )}
-        </div>
+        <h1>
+          {invoice.seller.name || "Vantix"}
+        </h1>
+
+        <p>
+          {invoice.seller.address || "Pune, Maharashtra"}
+        </p>
+
+        <p>
+          {invoice.seller.email || "offcvantix@gmail.com"}
+          {"  ·  "}
+          {invoice.seller.phone || "+91 9137368991"}
+        </p>
+
       </div>
 
-      <div className="invoice-meta">
-        <div className="invoice-title">
+      {/* RIGHT — INVOICE DETAILS */}
+      <div className="invoice-header-right">
+
+        <h2>
           INVOICE
+        </h2>
+
+        <div className="invoice-meta">
+
+          <div>
+            <span>
+              NUMBER
+            </span>
+
+            <strong>
+              {invoice.invoiceNumber}
+            </strong>
+          </div>
+
+          <div>
+            <span>
+              DATE
+            </span>
+
+            <strong>
+              {invoice.date}
+            </strong>
+          </div>
+
         </div>
 
-        <div className="meta-row">
-          <span>NUMBER</span>
-          <strong>{invoice.invoiceNumber}</strong>
-        </div>
-
-        <div className="meta-row">
-          <span>DATE</span>
-          <strong>{invoice.date || "—"}</strong>
-        </div>
       </div>
-    </div>
+
+    </header>
   );
 }
 

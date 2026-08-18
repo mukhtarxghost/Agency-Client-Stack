@@ -1807,3 +1807,15 @@ textarea {
     box-shadow: none;
   }
 }
+/* VANTIX DOCUMENT LOGO */
+
+.document-logo-image {
+  width: 72px !important;
+  height: 48px !important;
+  max-width: 72px !important;
+  max-height: 48px !important;
+  display: block !important;
+  object-fit: contain !important;
+  object-position: left center !important;
+  margin: 0 0 14px 0 !important;
+}

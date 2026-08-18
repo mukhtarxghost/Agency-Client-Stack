@@ -7,61 +7,62 @@ function ContractPreview({ contract }) {
   return (
     <div className="contract-document">
 
-      {/* HEADER */}
       <header className="contract-document-header">
-
         <div className="document-brand">
+
+          <img
+            src="/branding/vantix-logo.jpeg"
+            alt="Vantix"
+            className="document-logo-image"
+          />
+
           <h1>
             {contract.businessName || "Vantix"}
           </h1>
 
           <p>
-            {contract.businessAddress || "Pune, Maharashtra"}
+            {contract.businessAddress ||
+              "Pune, Maharashtra"}
           </p>
 
           <p>
-            {contract.businessEmail || "offcvantix@gmail.com"}
-
+            {contract.businessEmail}
             {contract.businessPhone &&
               `  ·  ${contract.businessPhone}`}
           </p>
         </div>
 
         <div className="document-meta">
-
           <div className="document-type">
             AGREEMENT
           </div>
 
-          <div className="document-meta-row">
+          <div>
             <span>CONTRACT</span>
             <strong>
               {contract.contractNumber}
             </strong>
           </div>
 
-          <div className="document-meta-row">
+          <div>
             <span>DATE</span>
             <strong>
               {formatDate(contract.date)}
             </strong>
           </div>
-
         </div>
-
       </header>
 
       <div className="document-rule" />
 
-      {/* INTRO */}
       <section className="contract-intro">
-
         <div className="eyebrow">
           SERVICE AGREEMENT
         </div>
 
         <h2>
-          {contract.projectName || "Project Agreement"}
+          {contract.projectName ||
+            "Project Agreement"}
         </h2>
 
         <p>
@@ -72,16 +73,14 @@ function ContractPreview({ contract }) {
           and{" "}
           <strong>
             {contract.clientName || "the Client"}
-          </strong>.
+          </strong>
+          .
         </p>
-
       </section>
 
-      {/* PARTIES */}
       <section className="contract-parties">
 
         <div className="party">
-
           <span className="section-number">
             01
           </span>
@@ -95,23 +94,13 @@ function ContractPreview({ contract }) {
               {contract.businessName || "Vantix"}
             </h3>
 
-            <p>
-              {contract.businessEmail}
-            </p>
-
-            <p>
-              {contract.businessPhone}
-            </p>
-
-            <p>
-              {contract.businessAddress}
-            </p>
+            <p>{contract.businessEmail}</p>
+            <p>{contract.businessPhone}</p>
+            <p>{contract.businessAddress}</p>
           </div>
-
         </div>
 
         <div className="party">
-
           <span className="section-number">
             02
           </span>
@@ -122,42 +111,30 @@ function ContractPreview({ contract }) {
             </span>
 
             <h3>
-              {contract.clientName || "Client Name"}
+              {contract.clientName ||
+                "Client Name"}
             </h3>
 
             {contract.clientCompany && (
               <p>{contract.clientCompany}</p>
             )}
 
-            <p>
-              {contract.clientEmail}
-            </p>
-
-            <p>
-              {contract.clientPhone}
-            </p>
-
-            <p>
-              {contract.clientAddress}
-            </p>
+            <p>{contract.clientEmail}</p>
+            <p>{contract.clientPhone}</p>
+            <p>{contract.clientAddress}</p>
           </div>
-
         </div>
 
       </section>
 
-      {/* PROJECT */}
       <section className="contract-section">
-
         <div className="section-heading">
-
           <span>03</span>
 
           <div>
             <small>PROJECT</small>
             <h3>Engagement Overview</h3>
           </div>
-
         </div>
 
         <div className="project-summary">
@@ -165,40 +142,40 @@ function ContractPreview({ contract }) {
           <div>
             <span>SERVICE</span>
             <strong>
-              {contract.service || "Professional Service"}
+              {contract.service ||
+                "Professional Service"}
             </strong>
           </div>
 
           <div>
             <span>TIMELINE</span>
             <strong>
-              {contract.timeline || "To be confirmed"}
+              {contract.timeline ||
+                "To be confirmed"}
             </strong>
           </div>
 
           <div>
             <span>PROJECT VALUE</span>
             <strong>
-              {formatCurrency(contract.totalAmount)}
+              {formatCurrency(
+                contract.totalAmount
+              )}
             </strong>
           </div>
 
         </div>
-
       </section>
 
-      {/* SCOPE */}
       <section className="contract-section">
 
         <div className="section-heading">
-
           <span>04</span>
 
           <div>
             <small>SCOPE</small>
             <h3>Scope of Work</h3>
           </div>
-
         </div>
 
         <p className="contract-copy">
@@ -208,18 +185,15 @@ function ContractPreview({ contract }) {
 
       </section>
 
-      {/* DELIVERABLES */}
       <section className="contract-section">
 
         <div className="section-heading">
-
           <span>05</span>
 
           <div>
             <small>DELIVERABLES</small>
             <h3>What will be delivered</h3>
           </div>
-
         </div>
 
         <p className="contract-copy">
@@ -229,18 +203,15 @@ function ContractPreview({ contract }) {
 
       </section>
 
-      {/* PAYMENT */}
       <section className="contract-section">
 
         <div className="section-heading">
-
           <span>06</span>
 
           <div>
             <small>PAYMENT</small>
             <h3>Commercial Terms</h3>
           </div>
-
         </div>
 
         <div className="payment-box">
@@ -249,7 +220,9 @@ function ContractPreview({ contract }) {
             <span>TOTAL PROJECT VALUE</span>
 
             <strong>
-              {formatCurrency(contract.totalAmount)}
+              {formatCurrency(
+                contract.totalAmount
+              )}
             </strong>
           </div>
 
@@ -266,7 +239,6 @@ function ContractPreview({ contract }) {
 
       </section>
 
-      {/* TERMS */}
       <section className="contract-terms">
 
         <div className="term">
@@ -274,9 +246,10 @@ function ContractPreview({ contract }) {
 
           <div>
             <small>REVISIONS</small>
+
             <p>
               {contract.revisionPolicy ||
-                "Two rounds of revisions included."}
+                "Revisions will be handled according to the agreed project scope."}
             </p>
           </div>
         </div>
@@ -286,6 +259,7 @@ function ContractPreview({ contract }) {
 
           <div>
             <small>TERMINATION</small>
+
             <p>
               {contract.cancellationPolicy ||
                 "Either party may terminate the agreement with written notice."}
@@ -298,6 +272,7 @@ function ContractPreview({ contract }) {
 
           <div>
             <small>CONFIDENTIALITY</small>
+
             <p>
               {contract.confidentiality ||
                 "Both parties agree to keep confidential information private."}
@@ -307,7 +282,6 @@ function ContractPreview({ contract }) {
 
       </section>
 
-      {/* SIGNATURES */}
       <section className="contract-signatures">
 
         <div className="signature">
@@ -321,9 +295,7 @@ function ContractPreview({ contract }) {
               "Vantix Representative"}
           </strong>
 
-          <span>
-            FOR VANTIX
-          </span>
+          <span>FOR VANTIX</span>
 
         </div>
 
@@ -338,29 +310,16 @@ function ContractPreview({ contract }) {
               "Client Representative"}
           </strong>
 
-          <span>
-            FOR CLIENT
-          </span>
+          <span>FOR CLIENT</span>
 
         </div>
 
       </section>
 
-      {/* FOOTER */}
       <footer className="contract-document-footer">
-
-        <span>
-          VANTIX / CLIENT AGREEMENT
-        </span>
-
-        <span>
-          CONFIDENTIAL
-        </span>
-
-        <span>
-          {contract.contractNumber}
-        </span>
-
+        <span>VANTIX / CLIENT AGREEMENT</span>
+        <span>CONFIDENTIAL</span>
+        <span>{contract.contractNumber}</span>
       </footer>
 
     </div>

@@ -7,25 +7,49 @@ function WelcomePreview({ welcome }) {
       <header className="welcome-document-header">
 
         <div className="welcome-brand">
-          <h1>{welcome.businessName || "Vantix"}</h1>
-          <p>{welcome.businessAddress}</p>
-          <p>{welcome.businessEmail}</p>
+
+          <img
+            src="/branding/vantix-logo.jpeg"
+            alt="Vantix"
+            className="document-logo-image"
+          />
+
+          <h1>
+            {welcome.businessName || "Vantix"}
+          </h1>
+
+          <p>
+            {welcome.businessAddress}
+          </p>
+
+          <p>
+            {welcome.businessEmail}
+          </p>
+
         </div>
 
         <div className="welcome-meta">
+
           <div className="welcome-type">
             WELCOME
           </div>
 
           <div>
             <span>NUMBER</span>
-            <strong>{welcome.welcomeNumber}</strong>
+
+            <strong>
+              {welcome.welcomeNumber}
+            </strong>
           </div>
 
           <div>
             <span>DATE</span>
-            <strong>{formatDate(welcome.date)}</strong>
+
+            <strong>
+              {formatDate(welcome.date)}
+            </strong>
           </div>
+
         </div>
 
       </header>
@@ -34,7 +58,7 @@ function WelcomePreview({ welcome }) {
 
       <section className="welcome-hero">
 
-        <span>WELCOME ONBOARD</span>
+        <span>WELCOME ABOARD</span>
 
         <h2>
           {welcome.clientName
@@ -47,7 +71,8 @@ function WelcomePreview({ welcome }) {
           <strong>
             {welcome.clientCompany || "you"}
           </strong>{" "}
-          working with {welcome.businessName || "Vantix"}.
+          working with{" "}
+          {welcome.businessName || "Vantix"}.
         </p>
 
       </section>
@@ -58,7 +83,8 @@ function WelcomePreview({ welcome }) {
           <span>CLIENT</span>
 
           <strong>
-            {welcome.clientName || "Client Name"}
+            {welcome.clientName ||
+              "Client Name"}
           </strong>
 
           <p>
@@ -74,7 +100,8 @@ function WelcomePreview({ welcome }) {
           <span>PROJECT</span>
 
           <strong>
-            {welcome.projectName || "Your Project"}
+            {welcome.projectName ||
+              "Your Project"}
           </strong>
 
           <p>
@@ -161,7 +188,8 @@ function WelcomePreview({ welcome }) {
         <span>YOUR PRIMARY CONTACT</span>
 
         <strong>
-          {welcome.contactPerson || "Vantix Team"}
+          {welcome.contactPerson ||
+            "Vantix Team"}
         </strong>
 
         <p>
@@ -171,9 +199,17 @@ function WelcomePreview({ welcome }) {
       </div>
 
       <footer className="welcome-footer">
-        <span>VANTIX / CLIENT ONBOARDING</span>
-        <span>CONFIDENTIAL</span>
-        <span>{welcome.welcomeNumber}</span>
+        <span>
+          VANTIX / CLIENT ONBOARDING
+        </span>
+
+        <span>
+          CONFIDENTIAL
+        </span>
+
+        <span>
+          {welcome.welcomeNumber}
+        </span>
       </footer>
 
     </div>

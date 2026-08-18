@@ -1,190 +1,257 @@
 import {
   formatCurrency,
   formatDate,
-  calculateSubtotal,
-  calculateTax,
-  calculateTotal,
-} from "../../utils/invoiceUtils";
+} from "../../utils/proposalUtils";
 
-function InvoicePreview({ invoice }) {
-  const subtotal = calculateSubtotal(invoice.items);
-  const taxAmount = calculateTax(subtotal, invoice.tax);
-  const total = calculateTotal(subtotal, taxAmount);
-
+function ProposalPreview({ proposal }) {
   return (
-    <div className="invoice-document">
+    <div className="proposal-document">
 
-      {/* HEADER */}
-      <header className="invoice-document-header">
-        <div className="invoice-brand">
+      <header className="proposal-document-header">
+
+        <div className="proposal-brand">
+
           <img
             src="/branding/vantix-logo.jpeg"
             alt="Vantix"
-            className="invoice-logo"
+            className="document-logo-image"
           />
 
           <h1>
-            {invoice.seller.name || "YOUR BUSINESS"}
+            {proposal.businessName || "Vantix"}
           </h1>
 
-          {invoice.seller.address && (
-            <p>{invoice.seller.address}</p>
-          )}
+          <p>
+            {proposal.businessAddress}
+          </p>
 
           <p>
-            {invoice.seller.email}
-            {invoice.seller.phone &&
-              `  ·  ${invoice.seller.phone}`}
+            {proposal.businessEmail}
+
+            {proposal.businessPhone &&
+              `  ·  ${proposal.businessPhone}`}
           </p>
+
         </div>
 
-        <div className="invoice-meta">
-          <div className="invoice-type">
-            INVOICE
+        <div className="proposal-meta">
+
+          <div className="proposal-type">
+            PROPOSAL
           </div>
 
           <div>
             <span>NUMBER</span>
+
             <strong>
-              {invoice.invoiceNumber}
+              {proposal.proposalNumber}
             </strong>
           </div>
 
           <div>
             <span>DATE</span>
+
             <strong>
-              {formatDate(invoice.date)}
+              {formatDate(proposal.date)}
             </strong>
           </div>
+
+          {proposal.validUntil && (
+            <div>
+              <span>VALID UNTIL</span>
+
+              <strong>
+                {formatDate(
+                  proposal.validUntil
+                )}
+              </strong>
+            </div>
+          )}
+
         </div>
+
       </header>
 
-      <div className="invoice-rule" />
+      <div className="proposal-rule" />
 
-      {/* CLIENT */}
-      <section className="invoice-client">
+      <section className="proposal-hero">
+
+        <span>PROPOSAL FOR</span>
+
+        <h2>
+          {proposal.projectName ||
+            "Project Proposal"}
+        </h2>
+
+        <p>
+          Prepared for{" "}
+          <strong>
+            {proposal.clientName ||
+              "Client Name"}
+          </strong>
+
+          {proposal.clientCompany &&
+            ` · ${proposal.clientCompany}`}
+        </p>
+
+      </section>
+
+      <section className="proposal-client">
+
         <div>
-          <span>BILL TO</span>
+          <span>CLIENT</span>
 
           <strong>
-            {invoice.client.name || "CLIENT NAME"}
+            {proposal.clientName ||
+              "Client Name"}
           </strong>
 
-          {invoice.client.email && (
-            <p>{invoice.client.email}</p>
+          {proposal.clientCompany && (
+            <p>{proposal.clientCompany}</p>
           )}
 
-          {invoice.client.phone && (
-            <p>{invoice.client.phone}</p>
-          )}
-
-          {invoice.client.address && (
-            <p>{invoice.client.address}</p>
-          )}
+          <p>{proposal.clientEmail}</p>
+          <p>{proposal.clientPhone}</p>
         </div>
 
-        <div className="invoice-status">
-          <span>STATUS</span>
+        <div>
+          <span>PROVIDER</span>
 
           <strong>
-            UNPAID
+            {proposal.businessName ||
+              "Vantix"}
           </strong>
+
+          <p>{proposal.businessEmail}</p>
+          <p>{proposal.businessPhone}</p>
         </div>
+
       </section>
 
-      {/* ITEMS */}
-      <section className="invoice-items">
-        <div className="invoice-items-header">
-          <span>DESCRIPTION</span>
-          <span>QTY</span>
-          <span>RATE</span>
-          <span>AMOUNT</span>
+      <section className="proposal-section">
+
+        <div className="proposal-heading">
+          <span>01</span>
+
+          <div>
+            <small>OVERVIEW</small>
+            <h3>The Opportunity</h3>
+          </div>
         </div>
 
-        {invoice.items.map((item) => {
-          const amount =
-            Number(item.quantity || 0) *
-            Number(item.rate || 0);
+        <p>
+          {proposal.introduction ||
+            "This proposal outlines the recommended solution, scope, deliverables and investment for the project."}
+        </p>
 
-          return (
-            <div
-              className="invoice-item"
-              key={item.id}
-            >
-              <span>
-                {item.description || "Service / Product"}
-              </span>
-
-              <span>
-                {item.quantity}
-              </span>
-
-              <span>
-                {formatCurrency(item.rate)}
-              </span>
-
-              <span>
-                {formatCurrency(amount)}
-              </span>
-            </div>
-          );
-        })}
       </section>
 
-      {/* TOTALS */}
-      <section className="invoice-totals">
-        <div className="invoice-total-row">
-          <span>SUBTOTAL</span>
+      <section className="proposal-section">
 
-          <strong>
-            {formatCurrency(subtotal)}
-          </strong>
+        <div className="proposal-heading">
+          <span>02</span>
+
+          <div>
+            <small>SCOPE</small>
+            <h3>What We'll Build</h3>
+          </div>
         </div>
 
-        <div className="invoice-total-row">
-          <span>
-            TAX ({invoice.tax || 0}%)
-          </span>
+        <p>
+          {proposal.scope ||
+            "The proposed scope will be defined according to the client's requirements and agreed before commencement."}
+        </p>
 
-          <strong>
-            {formatCurrency(taxAmount)}
-          </strong>
-        </div>
-
-        <div className="invoice-total-divider" />
-
-        <div className="invoice-total-final">
-          <span>TOTAL</span>
-
-          <strong>
-            {formatCurrency(total)}
-          </strong>
-        </div>
       </section>
 
-      {/* NOTES */}
-      {invoice.notes && (
-        <section className="invoice-notes">
-          <span>NOTES</span>
+      <section className="proposal-section">
 
-          <p>
-            {invoice.notes}
-          </p>
-        </section>
-      )}
+        <div className="proposal-heading">
+          <span>03</span>
 
-      {/* FOOTER */}
-      <footer className="invoice-document-footer">
+          <div>
+            <small>DELIVERABLES</small>
+            <h3>What You Receive</h3>
+          </div>
+        </div>
+
+        <p>
+          {proposal.deliverables ||
+            "Final deliverables will be provided according to the agreed project scope."}
+        </p>
+
+      </section>
+
+      <section className="proposal-commercials">
+
+        <div>
+          <span>PROJECT TIMELINE</span>
+
+          <strong>
+            {proposal.timeline ||
+              "To be confirmed"}
+          </strong>
+        </div>
+
+        <div>
+          <span>INVESTMENT</span>
+
+          <strong>
+            {formatCurrency(
+              proposal.investment
+            )}
+          </strong>
+        </div>
+
+      </section>
+
+      <section className="proposal-section">
+
+        <div className="proposal-heading">
+          <span>04</span>
+
+          <div>
+            <small>PAYMENT</small>
+            <h3>Commercial Terms</h3>
+          </div>
+        </div>
+
+        <p>
+          {proposal.paymentTerms ||
+            "Payment terms will be mutually agreed upon before project commencement."}
+        </p>
+
+      </section>
+
+      <section className="proposal-section">
+
+        <div className="proposal-heading">
+          <span>05</span>
+
+          <div>
+            <small>NEXT STEPS</small>
+            <h3>Moving Forward</h3>
+          </div>
+        </div>
+
+        <p>
+          {proposal.nextSteps ||
+            "Approve this proposal, finalize the agreement and begin the project."}
+        </p>
+
+      </section>
+
+      <footer className="proposal-footer">
         <span>
-          VANTIX / INVOICE
+          VANTIX / PROJECT PROPOSAL
         </span>
 
         <span>
-          THANK YOU FOR YOUR BUSINESS
+          CONFIDENTIAL
         </span>
 
         <span>
-          {invoice.invoiceNumber}
+          {proposal.proposalNumber}
         </span>
       </footer>
 
@@ -192,4 +259,4 @@ function InvoicePreview({ invoice }) {
   );
 }
 
-export default InvoicePreview;
+export default ProposalPreview;

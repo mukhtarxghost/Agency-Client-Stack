@@ -171,3 +171,11 @@ Built for agencies that want their client experience to feel as polished as the 
 One client. One workflow. One stack.
 License
 This project is licensed under the **Apache License 2.0**
+## Development Notes
+
+Client Stack is being actively developed with a focus on clean,
+practical automation workflows and reusable client solutions.
+
+- Keep components modular
+- Keep client-specific configuration separate
+- Test changes before deployment
